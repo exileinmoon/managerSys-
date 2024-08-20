@@ -5,7 +5,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
-
+import register from '@/views/register/index.vue' // 假设你的注册页面组件在这里
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -32,6 +32,24 @@ import Layout from '@/layout'
  */
 export const constantRoutes = [
   {
+    path: '/profile',
+    hidden: true,
+    component: Layout,
+    children: [
+      {
+        path: '',
+        name: 'Profile',
+        component: () => import('@/views/profile/index'),
+        meta: { title: '个人界面', icon: 'user' }
+      }
+    ]
+  },
+  {
+    path: '/register',
+    component: () => import('@/views/register/index'),
+    hidden: true
+  },
+  {
     path: '/login',
     component: () => import('@/views/login/index'),
     hidden: true
@@ -56,23 +74,14 @@ export const constantRoutes = [
   },
 
   {
-    path: '/example',
+    path: '/member',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: '会员管理', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        path: 'index',
+        name: '会员管理',
+        component: () => import('@/views/member/index'),
+        meta: { title: '会员管理', icon: 'form' }
       }
     ]
   },
@@ -96,7 +105,7 @@ export const constantRoutes = [
       {
         path: 'index',
         name: '营销管理',
-        component: () => import('@/views/form/index'),
+        component: () => import('@/views/marking/index'),
         meta: { title: '营销管理', icon: 'form' }
       }
     ]
@@ -108,84 +117,38 @@ export const constantRoutes = [
       {
         path: 'index',
         name: '资金管理',
-        component: () => import('@/views/form/index'),
+        component: () => import('@/views/money/index'),
         meta: { title: '资金管理', icon: 'form' }
       }
     ]
   },
   {
-    path: '/courier service',
+    path: '/courierService',
     component: Layout,
     children: [
       {
         path: 'index',
         name: '物流管理',
-        component: () => import('@/views/form/index'),
+        component: () => import('@/views/courierService/index'),
         meta: { title: '物流管理', icon: 'form' }
       }
     ]
   },
   {
-    path: '/nested',
+    path: '/order',
     component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
-    meta: {
-      title: '订单管理',
-      icon: 'nested'
-    },
     children: [
       {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
-      },
-      {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'Menu2',
-        meta: { title: 'menu2' }
+        path: 'index',
+        name: '订单管理',
+        component: () => import('@/views/order/index'),
+        meta: { title: '订单管理', icon: 'form' }
       }
     ]
   },
 
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  { path: '*', redirect: '*', hidden: true }
 ]
 
 const createRouter = () => new Router({
